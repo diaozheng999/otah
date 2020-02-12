@@ -49,7 +49,7 @@ def get_bundle_path(platform, distribution_mode, env, path):
         return "ios"
     else:
         return "%s/app/src/%s/%s/assets"%(
-            args.path if args.path else "android",
+            path if path else "android",
             distribution_mode,
             "staging" if env == "staging" else "production"
         )
