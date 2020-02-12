@@ -1,6 +1,6 @@
 {
   "name": "otah",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Flavoured builds for React Native",
   "bin": {
     "otah": "./bin/cli.py"
