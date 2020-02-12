@@ -11,9 +11,10 @@
     "url": "https://github.com/diaozheng999/otah"
   },
   "scripts": {
-    "otah": "./bin/cli.py"
+    "otah": "./bin/cli.py",
+    "setup": "python -m pip install pylint",
+    "lint": "pylint bin"
   },
-  "module": "dist/esm/index.js",
   "author": "My M1 App Team",
   "license": "MIT",
   "dependencies": {
@@ -23,16 +24,5 @@
   "devDependencies": {
     "@types/react-native": "^0.61.10",
     "typescript": "^3.7.2"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "modulePathIgnorePatterns": [
-      "<rootDir>/dist"
-    ],
-    "globals": {
-      "__DEV__": true
-    }
   }
 }
