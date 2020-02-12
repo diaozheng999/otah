@@ -4,8 +4,8 @@
  * @file Jest setup script
  */
 
-global.__MYM1_DISTRIBUTION_MODE = "APPLE";
-global.__MYM1_ENV = "STAGING";
+global.__OTAH_DISTRIBUTION_MODE__ = "APPLE";
+global.__OTAH_ENV__ = "STAGING";
 
 global.navigator = {
   product: "ReactNative",

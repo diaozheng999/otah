@@ -5,6 +5,7 @@
   "bin": {
     "otah": "./bin/cli.py"
   },
+  "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
