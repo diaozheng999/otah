@@ -42,10 +42,10 @@ def validate_distribution_mode(platform, mode):
     else:
         return (predict_platform(mode), mode)
 
-def get_bundle_path(platform, distribution_mode, env, path):
+def get_bundle_path(platform, distribution_mode, env, path, xcproj):
     if platform == "ios":
         if path:
-            return "%s/mym1usagetracker"%(path)
+            return "%s/%s"%(path, xcproj)
         return "ios"
     else:
         return "%s/app/src/%s/%s/assets"%(
@@ -54,10 +54,10 @@ def get_bundle_path(platform, distribution_mode, env, path):
             "staging" if env == "staging" else "production"
         )
 
-def get_assets_dest(platform, path):
+def get_assets_dest(platform, path, xcproj):
     if platform == "ios":
         if path:
-            return "%s/mym1usagetracker"%(path)
+            return "%s/%s"%(path, xcproj)
         return "ios"
     elif path:
         return "%s/app/src/main/res"%(path)
@@ -259,6 +259,13 @@ def get_parser(parent=None):
         help="Only displays build information, but doesn't build.",
         action='store_true'
     )
+
+    parser.add_argument(
+        '--xcproj',
+        help="Name of the project folder in Xcode to build to.",
+        default="mym1usagetracker"
+    )
+
     parser.set_defaults(command="bundle")
     return parser
 
@@ -269,9 +276,9 @@ def cli(args):
     )
 
     bundle_path = get_bundle_path(
-        platform, distribution_mode, args.env, args.path)
+        platform, distribution_mode, args.env, args.path, args.xcproj)
 
-    assets_dest = get_assets_dest(platform, args.path)
+    assets_dest = get_assets_dest(platform, args.path, args.xcproj)
 
     entry_file = "__m1bundle.%d.js"%(time.time())
 
