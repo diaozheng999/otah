@@ -176,7 +176,7 @@ includes/**/*.min.js
 includes/*/*.min.js
 
 # Compiled python
-*/*.pyc
+**/*.pyc
 
 # Intermediate files
 __m1bundle.*
