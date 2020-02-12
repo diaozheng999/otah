@@ -6,7 +6,7 @@ import subprocess
 import hermes
 import sys
 import time
-
+import argparse
 
 ANDROID_DISTRIBUTION_MODES = ["google", "huawei"]
 IOS_DISTRIBUTION_MODES = ["apple"]
@@ -104,13 +104,13 @@ def bundle(
     print("")
     print("Generating entry file......")
     print("")
-    generate_entry_file(entry_file, args.env, distribution_mode)
+    generate_entry_file(entry_file, env, distribution_mode)
 
     if do_barrel:
         print("")
         print("Barrelling......")
         print("")
-        if args.clean_build:
+        if clean_build:
             barrel.clean(barrel.SOURCE_ROOT)
         barrel.barrel(barrel.SOURCE_ROOT)
 
