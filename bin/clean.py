@@ -1,14 +1,22 @@
 #!/usr/bin/env python
 
+"""
+    clean.py
+    - author: Diao Zheng
+
+    Cleans the existing build directory.
+"""
+
 import shutil
 import os
 import argparse
 from barrel import clean, SOURCE_ROOT
 
-
 def get_parser(parent=None):
+    """ Returns an argparse parser or attaches a subparser to parent. """
+
     description = "Platform-independent clean script for packages."
-    
+
     if parent:
         parser = parent.add_parser("clean", description=description)
     else:
@@ -38,6 +46,8 @@ def get_parser(parent=None):
     return parser
 
 def cli(args):
+    """ The script that actually runs """
+
     if os.path.exists(args.dir):
         print("Removing %s..."%args.dir)
         shutil.rmtree(args.dir)
@@ -48,6 +58,12 @@ def cli(args):
     else:
         print("Not cleaning barrelled files.")
 
-if __name__ == "__main__":
+def cli_root():
+    """ The default CLI interface if this script is invoked by itself """
+
     parser = get_parser()
-    cli(parser.parse_args())
+    args = parser.parse_args()
+    cli(args)
+
+if __name__ == "__main__":
+    cli_root()
