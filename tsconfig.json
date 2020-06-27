@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "module": "es2015",
+    "module": "commonjs",
     "jsx": "react",
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -15,32 +15,10 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "types": ["node"],
     "moduleResolution": "node",
     "baseUrl": ".",
-    "paths": {
-      "*": ["types/*"],
-      "Root": ["src"],
-      "Components": ["src/Components"],
-      "Components/*": ["src/Components/*"],
-      "Core": ["src/Core"],
-      "Core/*": ["src/Core/*"],
-      "Images": ["src/Images"],
-      "Images/*": ["src/Images/*"],
-      "Interop": ["src/Interop"],
-      "Interop/*": ["src/Interop/*"],
-      "Localisation": ["src/Localisation"],
-      "Localisation/*": ["src/Localisation/*"],
-      "Models": ["src/Models"],
-      "Models/*": ["src/Models/*"],
-      "Resources": ["src/Resources"],
-      "Resources/*": ["src/Resources/*"],
-      "Scenes": ["src/Scenes"],
-      "Scenes/*": ["src/Scenes/*"],
-      "Styles": ["src/Styles"],
-      "Styles/*": ["src/Styles/*"],
-      "Themes": ["src/Themes"],
-      "Themes/*": ["src/Themes/*"]
-    },
+    "rootDir": "src",
     "typeRoots": [
       "@types",
       "./typings"
@@ -48,7 +26,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "allowJs": true,
-    "outDir": "__tscOutput__"
+    "outDir": "dist"
   }
 }
