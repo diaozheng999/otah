@@ -17,7 +17,7 @@ def generate_entry_file(file_name, environ, distribution_mode):
         
 global.__OTAH_DISTRIBUTION_MODE__ = "%s";
 global.__OTAH_ENV__ = "%s";
-require("index.js");
+require("./index.js");
 
         """%(distribution_mode.upper(), environ.upper())).strip())
 
@@ -42,16 +42,21 @@ def validate_distribution_mode(platform, mode):
     else:
         return (predict_platform(mode), mode)
 
-def get_bundle_path(platform, distribution_mode, env, path, xcproj):
+def get_bundle_path(
+    platform, distribution_mode, env,
+    path, xcproj, ignore_distribution_mode
+):
     if platform == "ios":
         if path:
             return "%s/%s"%(path, xcproj)
         return "ios"
+    elif ignore_distribution_mode:
+        return "%s/app/src/%s/assets"%(path if path else "android", env)
     else:
         return "%s/app/src/%s/%s/assets"%(
             path if path else "android",
             distribution_mode,
-            "staging" if env == "staging" else "production"
+            env
         )
 
 def get_assets_dest(platform, path, xcproj):
@@ -194,7 +199,6 @@ def get_parser(parent=None):
     parser.add_argument(
         '--env',
         help="Which environment to bundle to",
-        choices=("staging", "production"),
         default="staging"
     )
 
@@ -266,6 +270,18 @@ def get_parser(parent=None):
         default="mym1usagetracker"
     )
 
+    parser.add_argument(
+        '--ignore-distribution-mode-flavor',
+        help="Do not create a flavor folder for distribution mode on Android.",
+        action="store_true"
+    )
+
+    parser.add_argument(
+        '--rn-only',
+        help="Overrides default values to default CRNA project.",
+        action="store_true"
+    )
+
     parser.set_defaults(command="bundle")
     return parser
 
@@ -275,8 +291,14 @@ def cli(args):
         args.distribution_mode
     )
 
+    if (args.rn_only and platform == 'android'):
+        args.ignore_distribution_mode_flavor = True
+        args.bundle_name = "index.android"
+        args.bundle_extension = ".bundle"
+
     bundle_path = get_bundle_path(
-        platform, distribution_mode, args.env, args.path, args.xcproj)
+        platform, distribution_mode, args.env, args.path,
+        args.xcproj, args.ignore_distribution_mode_flavor)
 
     assets_dest = get_assets_dest(platform, args.path, args.xcproj)
 
